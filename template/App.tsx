@@ -1,45 +1,41 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
+import 'react-native-gesture-handler';
+import React from 'react';
+import {enableScreens} from 'react-native-screens';
+import {DarkTheme, NavigationContainer, Theme} from '@react-navigation/native';
+import {RootNavigator} from './src/navigation/RootNavigator';
+import {StatusBar} from 'react-native';
+import {Provider} from 'react-redux';
+import store from './src/store';
 
-import React from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  ViewStyle,
-} from "react-native";
-import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+enableScreens();
 
-declare const global: { HermesInternal: null | {} };
+const CustomDarkTheme: Theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: '#77839E',
+    text: 'white',
+    background: '#252E40',
+    notification: 'pink',
+    card: '#273344',
+    //border: 'yellow',
+  },
+  dark: true,
+};
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.container}>
-        <Text>Testing</Text>
-        <FontAwesome5 name="home" size={26} color={"black"} />
-      </SafeAreaView>
-    </>
+    <Provider store={store}>
+      <NavigationContainer theme={CustomDarkTheme}>
+        <StatusBar
+          barStyle={'light-content'}
+          // translucent
+          // backgroundColor={'transparent'}
+        />
+        <RootNavigator />
+      </NavigationContainer>
+    </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  } as ViewStyle,
-});
 
 export default App;
